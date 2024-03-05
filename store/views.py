@@ -121,16 +121,10 @@ def login_user(request):
 		if user is not None:
 			login(request, user)
 
-			# Do some shopping cart stuff
 			current_user = Profile.objects.get(user__id=request.user.id)
-			# Get their saved cart from database
 			saved_cart = current_user.old_cart
-			# Convert database string to python dictionary
 			if saved_cart:
-				# Convert to dictionary using JSON
 				converted_cart = json.loads(saved_cart)
-				# Add the loaded cart dictionary to our session
-				# Get the cart
 				cart = Cart(request)
 				# Loop thru the cart and add the items from the database
 				for key,value in converted_cart.items():
