@@ -34,11 +34,11 @@ def update_info(request):
 
 		if form.is_valid():
 			form.save()
-			messages.success(request, "Your Info Has Been Updated!!")
+			messages.success(request, "Your Info Has Been Updated")
 			return redirect('home')
 		return render(request, "update_info.html", {'form':form})
 	else:
-		messages.success(request, "You Must Be Logged In To Access That Page!!")
+		messages.success(request, "You Must Be Logged In To Access That Page")
 		return redirect('home')
 
 
@@ -52,7 +52,7 @@ def update_password(request):
 			# Is the form valid
 			if form.is_valid():
 				form.save()
-				messages.success(request, "Your Password Has Been Updated...")
+				messages.success(request, "Your Password Has Been Updated")
 				login(request, current_user)
 				return redirect('update_user')
 			else:
@@ -63,7 +63,7 @@ def update_password(request):
 			form = ChangePasswordForm(current_user)
 			return render(request, "update_password.html", {'form':form})
 	else:
-		messages.success(request, "You Must Be Logged In To View That Page...")
+		messages.success(request, "You Must Be Logged In To View That Page")
 		return redirect('home')
 def update_user(request):
 	if request.user.is_authenticated:
@@ -96,7 +96,7 @@ def category(request, foo):
 		products = Product.objects.filter(category=category)
 		return render(request, 'category.html', {'products':products, 'category':category})
 	except:
-		messages.success(request, ("That Category Doesn't Exist..."))
+		messages.success(request, ("That Category Doesn't Exist"))
 		return redirect('home')
 
 
@@ -133,7 +133,7 @@ def login_user(request):
 			messages.success(request, ("You Have Been Logged In!"))
 			return redirect('home')
 		else:
-			messages.success(request, ("There was an error, please try again..."))
+			messages.success(request, ("There was an error, please try again"))
 			return redirect('login')
 
 	else:
@@ -142,7 +142,7 @@ def login_user(request):
 
 def logout_user(request):
 	logout(request)
-	messages.success(request, ("You have been logged out...Thanks for stopping by..."))
+	messages.success(request, ("You have been logged out, thanks for shopping with us"))
 	return redirect('home')
 
 
@@ -158,10 +158,10 @@ def register_user(request):
 			# log in user
 			user = authenticate(username=username, password=password)
 			login(request, user)
-			messages.success(request, ("Username Created - Please Fill Out Your User Info Below..."))
+			messages.success(request, ("Username Created - Please Fill Out Your User Info Below"))
 			return redirect('update_info')
 		else:
-			messages.success(request, ("Whoops! There was a problem Registering, please try again..."))
+			messages.success(request, ("Whoops! There was a problem Registering, please try again"))
 			return redirect('register')
 	else:
 		return render(request, 'register.html', {'form':form})
