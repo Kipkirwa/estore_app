@@ -1,13 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from cart.cart import Cart
 from payment.forms import ShippingForm
 from payment.models import ShippingAddress, Order, OrderItem
 from django.contrib.auth.models import User
 from django.contrib import messages
-from store.models import Product
+from store.models import Product, Profile
+import datetime
 
 def checkout(request):
-
 	# Get the cart
 	cart = Cart(request)
 	cart_products = cart.get_prods
@@ -26,9 +26,7 @@ def checkout(request):
 		shipping_form = ShippingForm(request.POST or None)
 		return render(request, "payment/checkout.html", {"cart_products":cart_products, "quantities":quantities, "totals":totals, "shipping_form":shipping_form})
 
-	return render(request, "payment/checkout.html", {})
-
+	
 
 def payment_success(request):
-
 	return render(request, "payment/payment_success.html", {})
